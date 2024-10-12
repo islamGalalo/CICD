@@ -23,33 +23,9 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
-            steps {
-                script {
-                    // Run the Docker container and map ports
-                    sh 'docker run -d --name finalproject -p 8080:80 myapp'
-                }
-            }
-        }
 
-        stage('Clean Up') {
-            steps {
-                script {
-                    // Optional: Clean up old Docker images to free up space
-                    sh 'docker rmi $(docker images -f "dangling=true" -q) || true'
-                }
-            }
-        }
-    }
 
-    post {
-        always {
-            script {
-                // Stop and remove the Docker container after the pipeline run
-                sh 'docker stop myapp || true'
-                sh 'docker rm myapp || true'
-            }
-        }
-    }
+   
+  
 }
 
