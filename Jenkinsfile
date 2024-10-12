@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the Docker image name
-        DOCKER_IMAGE = 'my-app'
+        DOCKER_IMAGE = 'myapp'
     }
 
     stages {
