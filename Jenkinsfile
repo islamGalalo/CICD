@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Docker image name and Docker Hub credentials ID
         DOCKER_IMAGE = 'myapp'
-        DOCKER_CREDENTIALS_ID = 'Z2FsYWxkZXZvcHM6ZGNrcl9wYXRfUGFHdHZIMWFIVEN4Y3pCb0ZpdGpiLUZoMDFn'  // Jenkins credentials for Docker Hub
+        DOCKER_CREDENTIALS_ID = 'dckr_pat_PaGtvH1aHTCxczBoFitjb-Fh01g'  // Jenkins credentials for Docker Hub
         DOCKER_REPO = 'https://hub.docker.com/r/galaldevops/depi_project'  // Replace with your Docker Hub repository
      }
 
