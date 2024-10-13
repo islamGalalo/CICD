@@ -4,10 +4,9 @@ pipeline {
     environment {
         // Docker image name and Docker Hub credentials ID
         DOCKER_IMAGE = 'myapp'
-        DOCKER_CREDENTIALS_ID = 'Z2FsYWxkZXZvcHM6TGVvbTN6emExMA=='  // Jenkins credentials for Docker Hub
+        DOCKER_CREDENTIALS_ID = 'Z2FsYWxkZXZvcHM6ZGNrcl9wYXRfUGFHdHZIMWFIVEN4Y3pCb0ZpdGpiLUZoMDFn'  // Jenkins credentials for Docker Hub
         DOCKER_REPO = 'https://hub.docker.com/r/galaldevops/depi_project'  // Replace with your Docker Hub repository
-        SLACK_WEBHOOK = 'https://hooks.slack.com/services/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'  // Replace with your Slack webhook
-    }
+     }
 
     stages {
         stage('Checkout') {
@@ -26,17 +25,18 @@ pipeline {
             }
         }
 
+       
         stage('Login to Docker Hub') {
             steps {
                 script {
                     // Login to Docker Hub using Jenkins credentials
-                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'galaldevops', passwordVariable: 'Leom3zza10')]) {
-                        sh 'echo Leom3zza10 | docker login -u galaldevops --password-stdin'
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                     }
                 }
             }
         }
-
+    
         stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
