@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Docker image name and Docker Hub credentials ID
         DOCKER_IMAGE = 'myapp'
-        DOCKER_CREDENTIALS_ID = 'dckr_pat_PaGtvH1aHTCxczBoFitjb-Fh01g'  // Jenkins credentials for Docker Hub
+        DOCKER_CREDENTIALS_ID = 'jenkins2'  // Jenkins credentials for Docker Hub
         DOCKER_REPO = 'https://hub.docker.com/r/galaldevops/depi_project'  // Replace with your Docker Hub repository
      }
 
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh 'docker build -t myapp .'
+                    sh 'docker build -t galaldevops/myapp:latest .'
                 }
             }
         }
@@ -41,29 +41,10 @@ pipeline {
             steps {
                 script {
                     // Tag and push the Docker image to Docker Hub
-                    sh 'sudo docker tag caca1587355f domain.com/repo/tag_docker_name:latest'
-                    sh 'sudo docker push galaldevops/depi_project:finalapp'
+                    sh 'sudo docker push galaldevops/myapp:latest'
                 }
             }
         }
     }
 
-    post {
-        success {
-            // Send Slack notification on success
-            sh """
-            curl -X POST -H 'Content-type: application/json' --data '{
-                "text": "Docker image ${DOCKER_REPO}:latest has been successfully pushed to Docker Hub."
-            }' ${SLACK_WEBHOOK}
-            """
-        }
-        failure {
-            // Send Slack notification on failure
-            sh """
-            curl -X POST -H 'Content-type: application/json' --data '{
-                "text": "Pipeline failed while building or pushing the Docker image."
-            }' ${SLACK_WEBHOOK}
-            """
-        }
-    }
-}
+   
