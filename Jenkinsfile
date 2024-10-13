@@ -26,26 +26,18 @@ pipeline {
         }
 
        
-        stage('Login to Docker Hub') {
+        stage('Login to Docker Hub& push') {
             steps {
                 script {
                     // Login to Docker Hub using Jenkins credentials
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                         sh 'sudo docker push galaldevops/myapp:latest'
                     }
                 }
             }
         }
     
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                script {
-                    // Tag and push the Docker image to Docker Hub
-                    sh 'sudo docker push galaldevops/myapp:latest'
-                }
-            }
-        }
-    }
 
    
 }
